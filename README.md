@@ -11,3 +11,4 @@ Detección de monstruos y interacción con el juego ragnarok.
 - Interacción con el juego: xdotools y xmacroplay
 
 ## Demo
+![Alt Text](imagenes/actuacion.gif)
