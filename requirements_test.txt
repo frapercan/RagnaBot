@@ -1,0 +1,12 @@
+#
+# Testing requirements
+#
+-r requirements_build.txt
+
+
+coverage
+mock
+prospector
+pytest
+pytest-xdist
+pytest-cov

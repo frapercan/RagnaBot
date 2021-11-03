@@ -1,0 +1,7 @@
+#
+# Building requirements
+#
+-r requirements.txt
+
+bumpversion
+twine
