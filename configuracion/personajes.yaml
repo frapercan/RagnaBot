@@ -1,0 +1,26 @@
+- nombre: whitesmith
+  id_cliente: 0
+  usuario: "XXXX"
+  contraseña: "XXXX"
+  pesos: "pesos/pay_fild05_v2.pt"
+  rol: colector
+
+- nombre: priest
+  id_cliente: 1
+  usuario: "XXXX"
+  contraseña: "XXX"
+  pesos: None
+  rol: support
+
+#  - rol: linker
+#    id_cliente: 2
+#    usuario: "XXX"
+#    contraseña: "XXX"
+
+
+
+#Priest
+
+
+
+#Sage

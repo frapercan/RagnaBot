@@ -1,0 +1,62 @@
+# Rama de mercader:
+- cart_revolution:
+    tipo: click
+    retraso: 0
+    tecla: 2
+
+- cart_boost:
+    tipo: pulsa
+    retraso: 1
+    tecla: e
+
+- power_trust:
+    tipo: pulsa
+    retraso: 1
+    tecla: r
+
+- weapon_perfection:
+    tipo: pulsa
+    retraso: 1
+    tecla: t
+
+- adrenaline_rush:
+    tipo: pulsa
+    retraso: 1
+    tecla: u
+
+- crazy_uproar:
+    tipo: pulsa
+    retraso: 1
+    tecla: i
+
+# Rama de acólito
+- agi:
+    tipo: click
+    retraso: 2
+    tecla: 4
+- bless:
+    tipo: click
+    retraso: 1
+    tecla: 5
+
+- manus:
+    tipo: click
+    retraso: 2
+    tecla: 3
+
+- assumptio:
+    tipo: click
+    retraso: 2
+    tecla: 6
+
+- angelus:
+    tipo: pulsar
+    retraso: 2
+    tecla: r
+
+- magnificant:
+    tipo: pulsar
+    retraso: 2
+    tecla: u
+
+

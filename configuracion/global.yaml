@@ -1,0 +1,14 @@
+directorio_juegos: "/home/xaxi/Documentos"
+directorio_prefixes: "/home/xaxi/.PlayOnLinux/wineprefix"
+nombre_juego: "RagnarokOnline_"
+nombre_cliente: "XATIYARO.exe"
+nombre_juego_original: "original"
+nombre_parche: "parche"
+
+coordenadas_boton_jugar: [585,851]
+
+inicio_cliente_espera: 10
+
+margen_superior: 64
+margen_izquierdo: 72
+ancho_cliente: 640

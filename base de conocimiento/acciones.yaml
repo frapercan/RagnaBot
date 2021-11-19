@@ -1,0 +1,26 @@
+- entrar_al_portal_arriba
+
+- entrar_al_portal_abajo
+
+- entrar_al_portal_izquierda
+
+- entrar_al_portal_derecha
+
+- detectar
+
+- entrar_al_portal
+
+- abrir_almacen
+
+- buscar_objeto_almacen
+
+- sacar_objeto_almacen
+
+- recuperar_vida:
+    tecla: 4
+
+- recuperar_magia:
+    tecla: 3
+
+- volar:
+    tecla

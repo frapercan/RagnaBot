@@ -1,7 +1,7 @@
 ﻿# RagnaBot
 WORK IN PROGRESS
 ## Descripción del proyecto
-Detección de monstruos y interacción con el juego ragnarok.
+Detección de monstruos y interacción con el juego ragnarok. Ejecución automática de multiples clientes a través de WINE.
 
 ## Tecnologías
 - modelo neuronal: YoloV5

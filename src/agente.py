@@ -1,5 +1,7 @@
 import os
+import subprocess
 import time
+import _thread as thread
 
 import numpy as np
 import torch
@@ -16,67 +18,55 @@ from yolov5.models.experimental import Ensemble
 from yolov5.utils.downloads import attempt_download
 
 import psutil
-from PIL import Image,ImageDraw
+from PIL import Image, ImageDraw
 from torchvision import transforms
 
 
-
 class AgenteRagnarok:
-    def __init__(self, seleccion_cliente, pesos):
-        print('Setup complete. Using torch %s %s' % (
+    def __init__(self,cliente, configuracion_global, configuracion_personaje):
+        self.configuracion_global = configuracion_global
 
-        torch.__version__, torch.cuda.get_device_properties(0) if torch.cuda.is_available() else 'CPU'))
+        self.rol = configuracion_personaje['rol']
+        self.pesos = configuracion_personaje['pesos']
 
-        self.seleccion_cliente = seleccion_cliente
         self.id_cliente = self.obten_id_cliente()
-        self.mueve_ventana_origen()
         self.geometria = self.coge_geometria()
 
-        self.model = self.cargar_modelo(pesos)
+        self.model = self.cargar_modelo(self.pesos)
+
+        self.turno = False
+        self.vision,self.vision_completa = self.obtener_captura()
 
     def empezar_farmeo(self):
         i = 0
         while True:
-            i = i+1
-            imagen,imagen_completa = self.obtener_captura()
-            print(imagen.shape)
-            print(self.geometria)
+            i = i + 1
+            imagen, imagen_completa = self.obtener_captura()
             im = transforms.ToPILImage()(imagen[0]).convert("RGB")
 
-
-
-
-
-            print(imagen.shape)
             pred = self.model(imagen)[0]
-            pred = non_max_suppression(pred, 0.5,0.5 ,None,False , max_det=1000)
+            pred = non_max_suppression(pred, 0.5, 0.5, None, False, max_det=1000)
             try:
-                pred_x,pred_y,pred_w,pred_h,confidence,cls = pred[0][0]
+                pred_x, pred_y, pred_w, pred_h, confidence, cls = pred[0][0]
                 img1 = ImageDraw.Draw(im)
-                img1.rectangle((pred_x,pred_y,pred_w,pred_h), width=1)
-
-
+                img1.rectangle((pred_x, pred_y, pred_w, pred_h), width=1)
 
                 left_pad = self.geometria['left']
                 top_pad = self.geometria['top']
                 window_width = self.geometria['width']
                 window_height = self.geometria['height']
-                print('iteration: ',str(i))
+
+                x_1 = (pred_x + pred_w) / 2
+                y_1 = (pred_y + pred_h) / 2
 
 
-                x_1 = (pred_x+pred_w)/2
-                y_1 = (pred_y+pred_h)/2
+                x_1 = ((x_1 / 416) * window_width) + left_pad
+                y_1 = ((y_1 / 416) * window_height) + top_pad
 
-                print(f'x1 {x_1} y1 {y_1}')
-
-                x_1 = ((x_1/416)*window_width)+left_pad
-                y_1 = ((y_1/416)*window_height)+top_pad
-
-                print(f'rx1 {x_1} ry1 {y_1}')
-                pulsa('2',self.id_cliente)
-                click(x_1,y_1)
+                pulsa('2', self.id_cliente)
+                click(x_1, y_1)
                 img2 = ImageDraw.Draw(imagen_completa)
-                img2.rectangle((x_1,y_1,x_1,y_1), width=10)
+                img2.rectangle((x_1, y_1, x_1, y_1), width=10)
 
                 im.save(f"imagenes/poison_spore/nc_{str(i)}.jpeg")
                 imagen_completa.save(f"imagenes/imagen_completa/{str(i)}.jpeg")
@@ -88,16 +78,14 @@ class AgenteRagnarok:
                         proc.kill()
                         # pass
 
-                print(self.geometria)
             except Exception as e:
                 time.sleep(0.3)
-                pulsa('9',self.id_cliente)
+                pulsa('9', self.id_cliente)
                 time.sleep(0.5)
                 if np.random.random() > 0.5:
-
                     pulsa('3', self.id_cliente)
-
-
+                if np.random.random() > 0.8:
+                    pulsa('4', self.id_cliente)
 
     def cargar_modelo(self, weights, map_location=None, inplace=True, fuse=True):
         from models.yolo import Detect, Model
@@ -136,7 +124,7 @@ class AgenteRagnarok:
         with mss() as sct:
             # Get raw pixels from the screen, save it to a Numpy array
 
-            #imagen pantalla completa para debug
+            # imagen pantalla completa para debug
             sct_img = sct.grab({'top': 0, 'left': 0, 'width': 1680, 'height': 1050})
             img = Image.frombytes("RGB", sct_img.size, sct_img.bgra, "raw", "BGRX")
             img.save("hola.jpeg")
@@ -150,13 +138,13 @@ class AgenteRagnarok:
             imagen /= 255.0
             imagen = imagen[None]
             print(imagen.shape)
-            return imagen,img
+            return imagen, img
 
     def mueve_ventana_origen(self):
         os.popen(f"xdotool windowmove {self.id_cliente} 0 0")
 
     def obten_id_cliente(self):
-        id_cliente = os.popen("xdotool search --onlyvisible --name XATIYARO").read().split()[self.seleccion_cliente]
+        id_cliente = os.popen("xdotool search --onlyvisible --name XATIYARO").read().split()[-1]
         return id_cliente
 
     def coge_geometria(self):
@@ -167,9 +155,12 @@ class AgenteRagnarok:
 
         return {"top": int(y_origen), "left": int(x_origen), "width": int(ancho), "height": int(alto)}
 
+
 def click(x, y):
     os.system(f"xdotool mousemove {x} {y}")
     os.system('xmacroplay "$DISPLAY" < test.file')
 
-def pulsa(tecla,id_cliente):
+
+def pulsa(tecla, id_cliente):
+    os.system(f"xdotool windowactivate {id_cliente}")
     os.system(f"xdotool key {tecla}")
