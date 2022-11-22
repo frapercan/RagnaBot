@@ -11,6 +11,7 @@ Actualmente su único cometido es detectar figuras en el entorno, y ejecutar una
 Funcionalidades:
 - Login automático en el juego.
 - Ejecución de multiples clientes y puestas en pantalla en forma de GRID.
+- Evita el sistema Anti-Trampas Gepard Shield.
 
 ## Tecnologías
 - modelo neuronal: YoloV5
