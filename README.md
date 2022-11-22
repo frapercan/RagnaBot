@@ -4,12 +4,13 @@ WORK IN PROGRESS
 Detección de monstruos y interacción con el juego ragnarok. 
 Actualmente su único cometido es detectar figuras en el entorno, y ejecutar una rutina básica:
 
-- Si está el monstruo que interesa se dirige a golpearlo
+- Si está el monstruo que interesa se dirige a golpearlo.
 - Si no está el monstruo me teletransporto.
 - Si está el monstruo agresivo, me teletransporto.
 
 Funcionalidades:
-Ejecución automática de multiples clientes y puestas en pantalla en forma de GRID.
+- Login automático en el juego.
+- Ejecución de multiples clientes y puestas en pantalla en forma de GRID.
 
 ## Tecnologías
 - modelo neuronal: YoloV5
